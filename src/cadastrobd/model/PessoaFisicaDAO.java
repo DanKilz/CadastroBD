@@ -9,15 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Classe reposnsável por realizar as operações CRUD com o banco de dados
+// para objetos do tipo PessoaFisica.
 public class PessoaFisicaDAO {
-    /**
-     * Recupera uma pessoa física de acordo com o ID informado.
-     * @param id ID da pessoa física a ser buscada.
-     * @return objeto PessoaFisica ou null, se a pessoa não for encontrada.
-     * @throws SQLException caso a pessoa física não seja econtrada.
-    */
+    // Recupera uma pessoa física de acordo com o ID informado.
     public PessoaFisica getPessoa(int id) throws SQLException {
-        String sql = "SELECT p.*, pf.cpf FROM Pessoa p INNER JOIN PessoaFisica pf ON p.idPessoa = pf.idPessoa WHERE idPessoa = ?";
+        String sql = "SELECT p.*, pf.cpf FROM Pessoa p INNER JOIN PessoaFisica pf ON p.idPessoa = pf.idPessoa WHERE p.idPessoa = ?";
                 
         Connection conexao = null;
         PreparedStatement declaracao = null;
@@ -52,11 +49,7 @@ public class PessoaFisicaDAO {
         return null;
     }
     
-    /**
-     * Recupera todas as pessoas físicas do banco de dados.
-     * @return Lista de pessoas físicas.
-     * @throws SQLException caso não seja possível recuperar todas as pessoas físicas.
-    */
+    // Recupera todas as pessoas físicas do banco de dados.
     public List<PessoaFisica> getPessoas() throws SQLException {
         // Array que receberá as pessoas retornadas pelo banco de dados.
         List<PessoaFisica> pessoas = new ArrayList<>();
@@ -86,13 +79,6 @@ public class PessoaFisicaDAO {
                 
                 pessoas.add(pessoa);
             }
-            
-            System.out.println("\n==============================");
-            System.out.println("PESSOAS FÍSICAS CADASTRADAS:");
-            for (PessoaFisica pessoa : pessoas) {
-                pessoa.exibir();
-            }
-            System.out.println("==============================\n");
         }
         catch (SQLException e) {
             System.err.println("Erro ao recuperar pessoas físicas: " + e.getMessage());
@@ -104,11 +90,7 @@ public class PessoaFisicaDAO {
         return pessoas;
     }
     
-    /**
-     * Inclui uma nova pessoa física no banco de dados.
-     * @param pessoa Pessoa física a ser incluída.
-     * @throws SQLException Se não for possível incluir a pessoa.
-    */
+    // Inclui uma nova pessoa física no banco de dados.
     public void incluir(PessoaFisica pessoa) throws SQLException {
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -144,9 +126,7 @@ public class PessoaFisicaDAO {
             declaracaoPessoaFisica.executeUpdate();
             
             // Confirmando a transação com o banco de dados.
-            conexao.commit();
-            
-            System.out.println("Pessoa física incluída com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {
@@ -167,11 +147,7 @@ public class PessoaFisicaDAO {
         }
     }
     
-    /**
-     * Altera uma pessoa física no banco de dados.
-     * @param pessoa Pessoa física a ser alterada, com base em seu ID, que não será alterado.
-     * @throws SQLException Se não for possível alterar a pessoa física.
-    */
+    // Altera uma pessoa física no banco de dados.
     public void alterar(PessoaFisica pessoa) throws SQLException {        
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -203,9 +179,7 @@ public class PessoaFisicaDAO {
             declaracaoPessoaFisica.executeUpdate();
             
             // Confirmando a transação.
-            conexao.commit();
-            
-            System.out.println("Pessoa física alterada com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {
@@ -226,11 +200,7 @@ public class PessoaFisicaDAO {
         }
     }
     
-    /**
-     * Exclui uma pessoa física do banco de dados, de acordo com o ID informado.
-     * @param id ID da pessoa física a ser excluída.
-     * @throws SQLException Se não for possível exluir a pessoa física.
-    */
+    // Exclui uma pessoa física do banco de dados, de acordo com o ID informado.
     public void excluir(int id) throws SQLException {
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -255,9 +225,7 @@ public class PessoaFisicaDAO {
             declaracaoPessoa.executeUpdate();
             
             // Confirmando a transação.
-            conexao.commit();
-            
-            System.out.println("Pessoa física excluída com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {

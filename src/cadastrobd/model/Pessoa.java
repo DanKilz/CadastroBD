@@ -1,5 +1,7 @@
 package cadastrobd.model;
 
+// Superclasse pai que será herdada pelas subclasses PessoaFisica e PessoaJuridica.
+// Representa a tabela pai Pessoa no banco de dados.
 public class Pessoa {
     // ATRIBUTOS
     private int id;
@@ -82,7 +84,6 @@ public class Pessoa {
     
     // MÉTODO
     public void exibir() {
-        System.out.println("----------------------");
         System.out.println("ID: " + getId());
         System.out.println("Nome: " + getNome());
         System.out.println("Logradouro: " + getLogradouro() + ", " + getCidade() + "/" + getEstado());

@@ -9,15 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Classe reposnsável por realizar as operações CRUD com o banco de dados
+// para objetos do tipo PessoaJuridica.
 public class PessoaJuridicaDAO {
-    /**
-     * Recupera uma pessoa jurídica de acordo com o ID informado.
-     * @param id ID da pessoa jurídica a ser buscada.
-     * @return objeto PessoaJuridica ou null, se a pessoa não for encontrada.
-     * @throws SQLException caso a pessoa jurídica não seja econtrada.
-    */
+    // Recupera uma pessoa jurídica de acordo com o ID informado.
     public PessoaJuridica getPessoa(int id) throws SQLException {
-        String sql = "SELECT p.*, pj.cnpj FROM Pessoa p INNER JOIN PessoaJuridica pj ON p.idPessoa = pj.idPessoa WHERE idPessoa = ?";
+        String sql = "SELECT p.*, pj.cnpj FROM Pessoa p INNER JOIN PessoaJuridica pj ON p.idPessoa = pj.idPessoa WHERE p.idPessoa = ?";
         
         Connection conexao = null;
         PreparedStatement declaracao = null;
@@ -52,11 +49,7 @@ public class PessoaJuridicaDAO {
         return null;
     }
     
-    /**
-     * Recupera todas as pessoas jurídicas do banco de dados.
-     * @return Lista de pessoas jurídicas.
-     * @throws SQLException caso não seja possível recuperar todas as pessoas jurídicas.
-    */
+    // Recupera todas as pessoas jurídicas do banco de dados.
     public List<PessoaJuridica> getPessoas() throws SQLException {
         // Array que receberá as pessoas retornadas pelo banco de dados.
         List<PessoaJuridica> pessoas = new ArrayList<>();
@@ -86,13 +79,6 @@ public class PessoaJuridicaDAO {
                 
                 pessoas.add(pessoa);
             }
-            
-            System.out.println("\n==============================");
-            System.out.println("PESSOAS JURÍDICAS CADASTRADAS:");
-            for (PessoaJuridica pessoa : pessoas) {
-                pessoa.exibir();
-            }
-            System.out.println("==============================\n");
         }
         catch (SQLException e) {
             System.err.println("Erro ao recuperar pessoas jurídicas: " + e.getMessage());
@@ -104,11 +90,7 @@ public class PessoaJuridicaDAO {
         return pessoas;
     }
     
-    /**
-     * Inclui uma nova pessoa jurídica no banco de dados.
-     * @param pessoa Pessoa jurídica a ser incluída.
-     * @throws SQLException Se não for possível incluir a pessoa.
-    */
+    // Inclui uma nova pessoa jurídica no banco de dados.
     public void incluir(PessoaJuridica pessoa) throws SQLException {
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -144,9 +126,7 @@ public class PessoaJuridicaDAO {
             declaracaoPessoaJuridica.executeUpdate();
             
             // Confirmando a transação com o banco de dados.
-            conexao.commit();
-            
-            System.out.println("Pessoa jurídica incluída com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {
@@ -167,11 +147,7 @@ public class PessoaJuridicaDAO {
         }
     }
     
-    /**
-     * Altera uma pessoa jurídica no banco de dados.
-     * @param pessoa Pessoa jurídica a ser alterada, com base em seu ID, que não será alterado.
-     * @throws SQLException Se não for possível alterar a pessoa jurídica.
-    */
+    // Altera uma pessoa jurídica no banco de dados.
     public void alterar(PessoaJuridica pessoa) throws SQLException {
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -201,9 +177,7 @@ public class PessoaJuridicaDAO {
             declaracaoPessoaJuridica.setInt(2, pessoa.getId());
             
             // Confirmando a transação.
-            conexao.commit();
-            
-            System.out.println("Pessoa jurídica alterada com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {
@@ -224,11 +198,7 @@ public class PessoaJuridicaDAO {
         }
     }
     
-    /**
-     * Exclui uma pessoa jurídica do banco de dados, de acordo com o ID informado.
-     * @param id ID da pessoa jurídica a ser excluída.
-     * @throws SQLException Se não for possível exluir a pessoa jurídica.
-    */
+    // Exclui uma pessoa jurídica do banco de dados, de acordo com o ID informado.
     public void excluir(int id) throws SQLException {
         Connection conexao = null;
         PreparedStatement declaracaoPessoa = null;
@@ -253,9 +223,7 @@ public class PessoaJuridicaDAO {
             declaracaoPessoa.executeUpdate();
             
             // Confirmando a transação.
-            conexao.commit();
-            
-            System.out.println("Pessoa jurídica excluída com sucesso!");
+            conexao.commit();            
         }
         catch (SQLException e) {
             if (conexao != null) {

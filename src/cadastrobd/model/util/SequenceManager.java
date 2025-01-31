@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Classe responsável por lidar com a sequência criada no banco de dados.
+// Essa sequência será responsável por gerar os números de ID dos registros incluídos.
 public class SequenceManager {
-    /**
-     * Obtém o próximo valor de uma sequência no banco de dados.
-     * @param nomeSequencia Nome da sequência.
-     * @return Próximo valor da sequência.
-     * @throws SQLException Se houver erro na consulta.
-    */
+    // Obtém o próximo valor de uma sequência no banco de dados.
     public static int getValue(String nomeSequencia) throws SQLException {
         String sql = "SELECT NEXT VALUE FOR " + nomeSequencia + " AS proximoValor";
         
